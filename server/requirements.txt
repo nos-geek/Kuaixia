@@ -1,0 +1,9 @@
+# 快夏 Kuaixia Parser Server — Phase 1 依赖
+# 保持最小化，不引入 Redis / PostgreSQL / 消息队列等。
+fastapi>=0.110,<1.0
+uvicorn[standard]>=0.29,<1.0
+pydantic>=2.6,<3.0
+httpx>=0.27,<1.0
+
+# Phase 3+ 才会用到（现在先注释，按阶段引入）
+# yt-dlp

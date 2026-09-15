@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 下载列表页 -->
+    <string name="download_title">下载任务</string>
+    <string name="download_selected_count">已选 %1$d 项</string>
+    <string name="download_selected_tasks_count">已选择 %1$d 个任务</string>
+    <string name="download_exit_selection">退出选择</string>
+    <string name="download_select_all">全选</string>
+    <string name="download_deselect_all">取消全选</string>
+    <string name="download_delete">删除</string>
+    <string name="download_delete_task">删除任务</string>
+    <string name="download_delete_dialog_title">删除任务？</string>
+    <string name="download_delete_dialog_message">删除后只会移除任务记录，已经下载到手机里的视频和图片不会被删除。</string>
+    <string name="download_cancel">取消</string>
+    <string name="download_empty">暂无下载任务</string>
+    <string name="download_empty_category">该分类下暂无任务</string>
+
+    <!-- 筛选 -->
+    <string name="download_filter_all">全部</string>
+    <string name="download_filter_active">进行中</string>
+    <string name="download_filter_completed">已完成</string>
+    <string name="download_filter_failed">失败/已取消</string>
+
+    <!-- 任务操作 -->
+    <string name="download_pause">暂停</string>
+    <string name="download_resume">继续</string>
+    <string name="download_retry">重试</string>
+    <string name="download_refresh_link">刷新链接</string>
+
+    <!-- 任务状态 / 阶段 -->
+    <string name="download_state_queued">排队中</string>
+    <string name="download_state_downloading">下载中</string>
+    <string name="download_state_downloading_video">下载视频</string>
+    <string name="download_state_downloading_audio">下载音频</string>
+    <string name="download_state_merging">合并中</string>
+    <string name="download_state_paused">已暂停</string>
+    <string name="download_state_completed">已完成</string>
+    <string name="download_state_failed">失败</string>
+    <string name="download_state_cancelled">已取消</string>
+    <string name="download_merging_video_audio">正在合并音视频…</string>
+    <string name="download_saved_to_gallery">已保存到系统相册（Movies/快夏）</string>
+    <string name="download_size_unknown">未知</string>
+
+    <!-- 通知（DownloadNotifier） -->
+    <string name="download_progress">下载进度</string>
+    <string name="download_channel_description">显示下载任务进度与完成状态</string>
+    <string name="download_notif_preparing">正在准备下载…</string>
+    <string name="download_notif_queued">排队中…</string>
+    <string name="download_notif_downloading">下载中</string>
+    <string name="download_notif_downloading_video">下载视频中</string>
+    <string name="download_notif_downloading_audio">下载音频中</string>
+    <string name="download_notif_merging">合并音视频中…</string>
+    <string name="download_notif_aggregate_title">正在下载 %1$d 个任务</string>
+    <string name="download_notif_total_progress">总进度 %1$d%%</string>
+    <string name="download_notif_complete_title">下载完成</string>
+    <string name="download_notif_failed_title">下载失败</string>
+    <string name="download_notif_saved">%1$s 已保存到系统相册（Movies/快夏）</string>
+    <string name="download_notif_unknown_error">未知错误，点击查看详情</string>
+</resources>

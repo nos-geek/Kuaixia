@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compose 应用的基础 Activity 主题，实际颜色由 Compose Theme.kt 控制 -->
+    <style name="Theme.Kuaixia" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

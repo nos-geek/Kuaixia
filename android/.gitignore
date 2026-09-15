@@ -1,0 +1,14 @@
+# Gradle
+.gradle/
+build/
+
+# 本地配置（机器相关，勿提交）
+local.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# 捕获文件
+/captures

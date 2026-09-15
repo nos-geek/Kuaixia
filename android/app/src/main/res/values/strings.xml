@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">快夏</string>
+
+    <!-- 通用 -->
+    <string name="back">返回</string>
+    <string name="common_unknown">未知</string>
+    <string name="format_other">其他</string>
+
+    <!-- 首页 -->
+    <string name="home_title">快夏</string>
+    <string name="home_download_list">下载列表</string>
+    <string name="home_settings">设置</string>
+    <string name="home_switch_language">切换语言</string>
+    <string name="home_lang_cn">CN</string>
+    <string name="home_lang_en">EN</string>
+    <string name="home_url_hint">粘贴视频链接（支持整段分享文案）</string>
+    <string name="home_paste">从剪贴板粘贴</string>
+    <string name="home_clipboard_detected">检测到剪贴板链接</string>
+    <string name="home_clipboard_detected_platform">检测到剪贴板链接（%1$s）</string>
+    <string name="home_ignore">忽略</string>
+    <string name="home_parse_now">立即解析</string>
+    <string name="home_cancel_parse">取消解析</string>
+    <string name="home_parse">解析</string>
+    <string name="home_parse_success">解析成功</string>
+    <string name="home_copied">已复制%1$s</string>
+    <string name="home_work_link">作品链接</string>
+    <string name="home_media_link">媒体链接</string>
+    <string name="home_copy_work_link">复制作品链接</string>
+    <string name="home_copy_media_link">复制媒体链接</string>
+    <string name="home_author">作者</string>
+    <string name="home_platform">平台</string>
+    <string name="home_duration">时长</string>
+    <string name="home_quality_hint">清晰度（点击查看详情）</string>
+    <string name="home_no_downloadable_stream">未找到可下载的视频流（可能仅有音频）</string>
+    <string name="home_image_content">图片内容</string>
+    <string name="home_image_collection_content">图集内容（%1$d 张）</string>
+    <string name="home_image_index">图片 %1$d/%2$d</string>
+    <string name="home_download_selected">下载选中（%1$d）</string>
+    <string name="home_download_all_images">下载全部 %1$d 张</string>
+    <string name="home_approx_size">约 %1$s</string>
+    <string name="home_more_versions">另有 %1$d 个版本</string>
+    <string name="home_format_details">格式详情</string>
+    <string name="home_format">格式</string>
+    <string name="home_resolution">分辨率</string>
+    <string name="home_frame_rate">帧率</string>
+    <string name="home_codec">编码</string>
+    <string name="home_size">大小</string>
+    <string name="home_download">下载</string>
+    <string name="home_close">关闭</string>
+    <string name="home_cover">封面</string>
+    <string name="home_auto_parse_finished">自动解析完成</string>
+    <string name="home_auto_parse_started">检测到剪贴板链接，正在解析…</string>
+    <string name="home_auto_parse_failed">自动解析失败：%1$s</string>
+    <string name="home_auto_parse_failed_session_invalid">自动解析失败：抖音会话已失效，请重新登录</string>
+    <string name="home_auto_parse_failed_cookie">自动解析失败：抖音需要新鲜 Cookie，请登录</string>
+    <string name="home_error_no_url">请输入视频链接</string>
+    <string name="home_error_no_valid_url">未识别到有效链接</string>
+    <string name="home_error_parse_failed">解析失败，请稍后重试</string>
+    <string name="home_error_create_task">创建下载任务失败：%1$s</string>
+    <string name="home_error_create_image_task">创建图片下载任务失败：%1$s</string>
+
+    <!-- 解析方式 -->
+    <string name="parse_mode_local_first">本地优先</string>
+    <string name="parse_mode_local_first_desc">优先本地解析，失败后尝试服务器</string>
+    <string name="parse_mode_server_first">服务器优先</string>
+    <string name="parse_mode_server_first_desc">优先服务器解析，失败后尝试本地</string>
+    <string name="parse_mode_local_only">仅本地</string>
+    <string name="parse_mode_local_only_desc">只使用本地解析</string>
+    <string name="parse_mode_server_only">仅服务器</string>
+    <string name="parse_mode_server_only_desc">只使用服务器解析</string>
+
+    <!-- 媒体类型 -->
+    <string name="media_video">视频</string>
+    <string name="media_image">图片</string>
+    <string name="media_image_collection">图集</string>
+    <string name="media_live_photo">实况</string>
+    <string name="media_animated_image">动图</string>
+    <string name="media_unknown">未知</string>
+
+    <!-- 日志导出范围 -->
+    <string name="log_range_last_1h">最近 1 小时</string>
+    <string name="log_range_last_6h">最近 6 小时</string>
+    <string name="log_range_last_24h">最近 24 小时</string>
+    <string name="log_range_all">全部日志</string>
+
+    <!-- 设置页 -->
+    <string name="settings_title">设置</string>
+    <string name="section_parser_server">解析服务器</string>
+    <string name="current_server">当前服务器</string>
+    <string name="server_not_configured">未配置，点击添加</string>
+    <string name="section_parse_mode">解析方式</string>
+    <string name="clipboard_auto_parse">自动解析剪贴板链接</string>
+    <string name="clipboard_auto_parse_desc">打开快夏时检测到视频链接即自动解析（默认关）</string>
+    <string name="section_appearance">外观</string>
+    <string name="theme">主题</string>
+    <string name="theme_light">浅色</string>
+    <string name="theme_dark">深色</string>
+    <string name="section_douyin_session">抖音解析会话</string>
+    <string name="douyin_webview_session">抖音 WebView 会话</string>
+    <string name="douyin_session_established">抖音会话：已建立（Cookie 仅存本 App WebView）</string>
+    <string name="douyin_session_not_established">抖音会话：未建立</string>
+    <string name="douyin_session_hint">抖音解析需要活跃网页 Cookie。登录后会话可复用；无效时按提示重新登录。</string>
+    <string name="clear_douyin_session">清除登录会话</string>
+    <string name="douyin_login">登录 / 重新登录</string>
+    <string name="section_developer">开发者</string>
+    <string name="developer_options">开发者选项</string>
+    <string name="developer_options_desc">用于调试、诊断和测试功能</string>
+    <string name="server_connection_ok">服务器连接正常</string>
+    <string name="server_connection_failed">无法连接服务器</string>
+
+    <!-- 开发者选项页 -->
+    <string name="dev_section_advanced">高级</string>
+    <string name="dev_core_info">解析核心信息</string>
+    <string name="dev_ytdlp_version">yt-dlp 版本</string>
+    <string name="dev_parse_mode">解析模式</string>
+    <string name="dev_not_available">未获取</string>
+    <string name="dev_verbose_log">详细日志</string>
+    <string name="dev_verbose_log_desc">开启后记录 DEBUG 级日志（默认仅 INFO+，减小写入量）</string>
+    <string name="dev_ytdlp_diagnostics">yt-dlp 诊断</string>
+    <string name="dev_ytdlp_diagnostics_desc">本地解析环境自检与日志</string>
+    <string name="dev_debug_logs">调试日志</string>
+    <string name="dev_debug_logs_desc">崩溃报告 · 下载全链路日志 · 可复制导出</string>
+
+    <!-- 关于页 -->
+    <string name="section_about">关于</string>
+    <string name="about_app_name">快夏 Kuaixia</string>
+    <string name="version_format">版本 %1$s</string>
+    <string name="about_author">作者</string>
+    <string name="about_source">开源地址</string>
+    <string name="about_github">GitHub</string>
+    <string name="about_license">开源协议</string>
+    <string name="license_mit">MIT License</string>
+    <string name="about_third_party">第三方开源组件</string>
+    <string name="third_party_ytdlp">yt-dlp — Unlicense</string>
+    <string name="third_party_ffmpegkit">FFmpegKit — LGPL-3.0</string>
+    <string name="third_party_androidx">AndroidX / Jetpack Compose — Apache-2.0</string>
+</resources>

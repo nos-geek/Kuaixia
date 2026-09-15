@@ -1,0 +1,125 @@
+# ============================================================
+# 快夏 Kuaixia — 根级 .gitignore
+# 适用于 Android (Kotlin/Gradle) + FastAPI (Python) 项目
+# 目的：排除构建产物、缓存、本机配置、签名与凭据文件
+# 注意：请勿忽略 android/app/src/main/assets/kuaixia/ytdlp-bin/yt-dlp
+#       （该文件是运行时必需资产，必须纳入版本控制）
+# ============================================================
+
+# ---------- Gradle / Android 构建产物 ----------
+build/
+*/build/
+**/build/
+
+.gradle/
+*/.gradle/
+**/.gradle/
+
+.kotlin/
+*/.kotlin/
+**/.kotlin/
+
+.cxx/
+*/.cxx/
+**/.cxx/
+
+out/
+**/out/
+generated/
+**/generated/
+intermediates/
+**/intermediates/
+outputs/
+**/outputs/
+
+# ---------- IDE / 编辑器 / 系统 ----------
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+captures/
+*/captures/
+
+# ---------- 本机相关配置 ----------
+local.properties
+
+# ---------- 二进制构建产物 ----------
+*.apk
+*.aab
+*.apks
+*.aar
+
+# ---------- 签名与密钥（严禁提交） ----------
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+*.pk8
+*.der
+*.cer
+key.properties
+signing.properties
+
+# 正式签名信息备份（含私钥口令，严禁提交）
+Kuaixia-Release-Signing-Backup.txt
+*-Release-Signing-Backup.txt
+
+# ---------- 环境变量与凭据 ----------
+.env
+.env.*
+*.env.*
+secrets.properties
+credentials.json
+
+# ---------- 本机工具与工作区数据 ----------
+.workbuddy/
+*/.workbuddy/
+**/.workbuddy/
+
+# ---------- Python / FastAPI ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# ---------- 日志与临时文件 ----------
+*.log
+*.tmp
+*.part
+*.bak
+*~
+
+# ---------- Cookie / 凭据文件（严禁提交） ----------
+cookie.txt
+*-cookie.txt
+cookies.txt
+*cookies.txt
+*cookie*.txt
+**/cookies/
+# 例外：源码测试文件名含 "Cookie" 字样（是单元测试，不是凭据文件），必须保留
+!**/DouyinCookieTest.*
+!**/DouyinCookieTest.kt
+!**/DouyinCookieTest.java
+
+# ---------- 测试下载文件 / 本地媒体产物 ----------
+Pictures/
+downloads/
+*.webp
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.gif
+*.mov
+*.m4a
+*.mp3
+
+# ---------- 例外：必须纳入版本控制的运行时资产 ----------
+!android/app/src/main/assets/kuaixia/ytdlp-bin/yt-dlp

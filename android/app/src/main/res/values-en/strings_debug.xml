@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- yt-dlp diagnostics page -->
+    <string name="debug_title">yt-dlp Diagnostics</string>
+    <string name="debug_running">Running…</string>
+    <string name="debug_reinitialize">Reinitialize</string>
+    <string name="debug_network_env">Network environment</string>
+    <string name="debug_status_title">yt-dlp Status</string>
+    <string name="debug_init_not_started">Not initialized</string>
+    <string name="debug_init_initializing">Initializing…</string>
+    <string name="debug_init_ready">Ready</string>
+    <string name="debug_init_failed">Failed</string>
+    <string name="debug_details_format">Details: %1$s</string>
+    <string name="debug_env_files">Environment files</string>
+    <string name="debug_last_result">Last result</string>
+    <string name="debug_command_format">Command: %1$s</string>
+    <string name="debug_exit_code_format">exitCode: %1$d</string>
+    <string name="debug_stdout">stdout:</string>
+    <string name="debug_stderr">stderr:</string>
+    <string name="debug_empty_value">(empty)</string>
+
+    <!-- Network environment diagnostic lines -->
+    <string name="debug_net_android_proxy">Android system proxy: %1$s</string>
+    <string name="debug_net_direct">None (direct)</string>
+    <string name="debug_net_env_var">env %1$s = %2$s</string>
+    <string name="debug_net_not_set">(not set)</string>
+    <string name="debug_net_jvm_http_proxy_host">jvm http.proxyHost  = %1$s</string>
+    <string name="debug_net_jvm_https_proxy_host">jvm https.proxyHost = %1$s</string>
+    <string name="debug_net_none">(none)</string>
+    <string name="debug_net_hint">Note: Python subprocesses do not inherit the Android system proxy; they only inherit environment variables (usually empty) → yt-dlp connects directly by default</string>
+
+    <!-- Device info (diagnostic text with placeholders) -->
+    <string name="debug_device_app_version">v%1$s (%2$d)</string>
+    <string name="debug_device_android_version">Android %1$s (API %2$d)</string>
+    <string name="debug_device_model">%1$s %2$s</string>
+    <string name="debug_device_downloader">HttpDownloader 1.0</string>
+    <string name="debug_device_screen">%1$dx%2$d @%3$ddpi</string>
+    <string name="debug_device_memory">%1$dMB</string>
+    <string name="debug_unknown">unknown</string>
+
+    <!-- Log page -->
+    <string name="log_title">Debug Logs</string>
+    <string name="log_refresh">Refresh</string>
+    <string name="log_exported">Logs exported</string>
+    <string name="log_export_failed">Export failed</string>
+    <string name="log_zip_exported">Diagnostics package exported (ZIP)</string>
+    <string name="log_cleared">Logs cleared</string>
+    <string name="log_crash_detected">Crash detected from last run</string>
+    <string name="log_view">View</string>
+    <string name="log_copy">Copy</string>
+    <string name="log_crash_copied">Crash info copied</string>
+    <string name="log_clear_crash">Clear</string>
+    <string name="log_copied_range_logs">Copied %1$s logs</string>
+    <string name="log_export_txt">Export TXT</string>
+    <string name="log_export_zip">Export ZIP</string>
+    <string name="log_clear">Clear</string>
+    <string name="log_filter_all">All</string>
+    <string name="log_filter_all_tag">All Tags</string>
+    <string name="log_search_hint">Search 403 / 412 / Exception / FFmpeg / Douyin…</string>
+    <string name="log_showing_count">Showing %1$d / %2$d</string>
+    <string name="log_no_match">No matching logs</string>
+    <string name="log_copied_entry">Entry copied</string>
+    <string name="log_copied">Copied</string>
+    <string name="log_close">Close</string>
+    <string name="log_last_crash">Last crash</string>
+    <string name="log_device_info">Debug Info</string>
+    <string name="log_label_app_version">App version</string>
+    <string name="log_label_system">System</string>
+    <string name="log_label_device">Device</string>
+    <string name="log_label_cpu_abi">CPU ABI</string>
+    <string name="log_label_ytdlp">yt-dlp</string>
+    <string name="log_label_ffmpeg">FFmpeg</string>
+    <string name="log_label_parse_mode">Parse mode</string>
+    <string name="log_label_downloader">Downloader</string>
+    <string name="log_not_available">Not available</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 抖音网页登录 -->
+    <string name="douyin_login_title">抖音网页登录</string>
+    <string name="douyin_login_hint">请使用抖音网页版完成登录。会话 Cookie 仅保存在快夏自己的浏览器中，不上传、不写入日志。</string>
+    <string name="douyin_retry_after_login">登录后自动重试：%1$s</string>
+    <string name="douyin_page_loading">正在加载抖音网页…</string>
+    <string name="douyin_page_default_title">抖音网页</string>
+    <string name="douyin_confirm_continue">我已登录，继续</string>
+    <string name="douyin_no_cookie_error">当前没有获取到抖音 Cookie，请先完成登录或刷新页面。</string>
+
+    <!-- 服务器列表 -->
+    <string name="srv_list_title">解析服务器</string>
+    <string name="srv_add">添加服务器</string>
+    <string name="srv_empty">还没有解析服务器\n点击右下角 + 添加</string>
+    <string name="srv_delete_title">删除服务器</string>
+    <string name="srv_delete_confirm">确定要删除「%1$s」吗？</string>
+    <string name="srv_delete">删除</string>
+    <string name="srv_cancel">取消</string>
+    <string name="srv_default_server">默认服务器</string>
+    <string name="srv_set_default">设为默认</string>
+    <string name="srv_edit">编辑</string>
+
+    <!-- 添加 / 编辑服务器 -->
+    <string name="srv_add_title">添加服务器</string>
+    <string name="srv_edit_title">修改服务器</string>
+    <string name="srv_name_label">服务器名称</string>
+    <string name="srv_name_placeholder">我的服务器</string>
+    <string name="srv_url_label">服务器地址</string>
+    <string name="srv_url_placeholder" translatable="false">https://example.com/</string>
+    <string name="srv_error_url_required">请先填写服务器地址</string>
+    <string name="srv_testing">测试中…</string>
+    <string name="srv_test_connection">测试连接</string>
+    <string name="srv_error_name_required">请填写服务器名称</string>
+    <string name="srv_error_url_invalid">服务器地址无效，仅支持 http/https</string>
+    <string name="srv_save">保存</string>
+</resources>

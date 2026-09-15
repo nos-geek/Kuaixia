@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Download list screen -->
+    <string name="download_title">Downloads</string>
+    <string name="download_selected_count">%1$d selected</string>
+    <string name="download_selected_tasks_count">%1$d tasks selected</string>
+    <string name="download_exit_selection">Exit selection</string>
+    <string name="download_select_all">Select all</string>
+    <string name="download_deselect_all">Deselect all</string>
+    <string name="download_delete">Delete</string>
+    <string name="download_delete_task">Delete task</string>
+    <string name="download_delete_dialog_title">Delete task?</string>
+    <string name="download_delete_dialog_message">Deleting only removes the task record. Videos and images already downloaded to your phone will not be deleted.</string>
+    <string name="download_cancel">Cancel</string>
+    <string name="download_empty">No download tasks</string>
+    <string name="download_empty_category">No tasks in this category</string>
+
+    <!-- Filters -->
+    <string name="download_filter_all">All</string>
+    <string name="download_filter_active">In progress</string>
+    <string name="download_filter_completed">Completed</string>
+    <string name="download_filter_failed">Failed/Cancelled</string>
+
+    <!-- Task actions -->
+    <string name="download_pause">Pause</string>
+    <string name="download_resume">Resume</string>
+    <string name="download_retry">Retry</string>
+    <string name="download_refresh_link">Refresh link</string>
+
+    <!-- Task state / stage -->
+    <string name="download_state_queued">Queued</string>
+    <string name="download_state_downloading">Downloading</string>
+    <string name="download_state_downloading_video">Downloading video</string>
+    <string name="download_state_downloading_audio">Downloading audio</string>
+    <string name="download_state_merging">Merging</string>
+    <string name="download_state_paused">Paused</string>
+    <string name="download_state_completed">Completed</string>
+    <string name="download_state_failed">Failed</string>
+    <string name="download_state_cancelled">Cancelled</string>
+    <string name="download_merging_video_audio">Merging audio and video…</string>
+    <string name="download_saved_to_gallery">Saved to gallery (Movies/快夏)</string>
+    <string name="download_size_unknown">Unknown</string>
+
+    <!-- Notifications (DownloadNotifier) -->
+    <string name="download_progress">Download progress</string>
+    <string name="download_channel_description">Shows download task progress and completion status</string>
+    <string name="download_notif_preparing">Preparing download…</string>
+    <string name="download_notif_queued">Queued…</string>
+    <string name="download_notif_downloading">Downloading</string>
+    <string name="download_notif_downloading_video">Downloading video</string>
+    <string name="download_notif_downloading_audio">Downloading audio</string>
+    <string name="download_notif_merging">Merging audio and video…</string>
+    <string name="download_notif_aggregate_title">Downloading %1$d tasks</string>
+    <string name="download_notif_total_progress">Overall %1$d%%</string>
+    <string name="download_notif_complete_title">Download complete</string>
+    <string name="download_notif_failed_title">Download failed</string>
+    <string name="download_notif_saved">%1$s saved to gallery (Movies/快夏)</string>
+    <string name="download_notif_unknown_error">Unknown error, tap for details</string>
+</resources>

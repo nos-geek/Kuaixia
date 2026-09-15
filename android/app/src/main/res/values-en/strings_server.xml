@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Douyin web sign-in -->
+    <string name="douyin_login_title">Douyin Web Sign-in</string>
+    <string name="douyin_login_hint">Sign in on the Douyin website. Session cookies are kept only in Kuaixia\'s own browser — never uploaded or written to logs.</string>
+    <string name="douyin_retry_after_login">Auto-retry after sign-in: %1$s</string>
+    <string name="douyin_page_loading">Loading Douyin page…</string>
+    <string name="douyin_page_default_title">Douyin</string>
+    <string name="douyin_confirm_continue">I\'m signed in, continue</string>
+    <string name="douyin_no_cookie_error">No Douyin cookie found. Please finish signing in or refresh the page.</string>
+
+    <!-- Server list -->
+    <string name="srv_list_title">Servers</string>
+    <string name="srv_add">Add Server</string>
+    <string name="srv_empty">No parser servers yet\nTap + in the bottom right to add</string>
+    <string name="srv_delete_title">Delete Server</string>
+    <string name="srv_delete_confirm">Delete \"%1$s\"?</string>
+    <string name="srv_delete">Delete</string>
+    <string name="srv_cancel">Cancel</string>
+    <string name="srv_default_server">Default server</string>
+    <string name="srv_set_default">Set as default</string>
+    <string name="srv_edit">Edit</string>
+
+    <!-- Add / Edit server -->
+    <string name="srv_add_title">Add Server</string>
+    <string name="srv_edit_title">Edit Server</string>
+    <string name="srv_name_label">Server name</string>
+    <string name="srv_name_placeholder">My server</string>
+    <string name="srv_url_label">URL</string>
+    <string name="srv_error_url_required">Please enter the server URL first</string>
+    <string name="srv_testing">Testing…</string>
+    <string name="srv_test_connection">Test Connection</string>
+    <string name="srv_error_name_required">Please enter the server name</string>
+    <string name="srv_error_url_invalid">Invalid server URL; only http/https are supported</string>
+    <string name="srv_save">Save</string>
+</resources>
