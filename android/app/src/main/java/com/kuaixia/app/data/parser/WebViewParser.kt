@@ -67,6 +67,15 @@ class WebViewParser(private val context: Context) : VideoParser {
         val mimeHint: String?,
         val requestHeaders: Map<String, String>,
         val captureOrder: Int,
+        // P8.2：PAGE_JSON video.bit_rate[] 档位元数据（仅页面 JSON 候选携带；网络捕获候选保持 null = P8.1 行为）
+        /** gear_name（如 1080p / normal_720_0；仅日志参考，不参与排序）。 */
+        val gear: String? = null,
+        val width: Int? = null,
+        val height: Int? = null,
+        /** 码率 kbps（页面 bps 已归一；与 yt-dlp tbr 同量级，仅同清晰度组内择优用）。 */
+        val bitrate: Double? = null,
+        /** play_addr.data_size（字节）。 */
+        val dataSize: Long? = null,
     ) {
         val isVideo: Boolean get() = kind == MediaKind.VIDEO || kind == MediaKind.HLS
         val isAudio: Boolean get() = kind == MediaKind.AUDIO
@@ -88,12 +97,23 @@ class WebViewParser(private val context: Context) : VideoParser {
                 }
             }
             val proto = if (kind == MediaKind.HLS) "m3u8" else "http"
+            // P8.2：档位元数据只取有效正数（JS 端已做 isFinite 校验，此处兜底）
+            val realHeight = height?.takeIf { it > 0 }
+            val realWidth = width?.takeIf { it > 0 }
             return StreamInfo(
                 formatId = "webview-${captureOrder}",
                 url = url,
-                quality = quality,
+                // P8.2：真实字段优先 —— height 存在时 quality="${height}P"（与 UI 分组 label、
+                // 下载任务记录的 quality 三者一致，保证"链接失效重解析"的 pickStream 匹配）；
+                // height 缺失时沿用既有 URL 正则兜底（旧逻辑保留，行为与 P8.1 一致）
+                quality = realHeight?.let { "${it}P" } ?: quality,
                 ext = extFor(kind),
                 mimeType = mimeHint,
+                resolution = if (realWidth != null && realHeight != null) "${realWidth}×${realHeight}" else null,
+                width = realWidth,
+                height = realHeight,
+                fileSize = dataSize?.takeIf { it > 0 },
+                bitrate = bitrate,
                 protocol = proto,
                 videoHeaders = headers,
                 hasAudio = kind == MediaKind.AUDIO || kind == MediaKind.VIDEO || kind == MediaKind.HLS,
@@ -285,6 +305,12 @@ class WebViewParser(private val context: Context) : VideoParser {
                         mimeHint = "video/mp4",
                         requestHeaders = emptyMap(),
                         captureOrder = captureOrderCounter.incrementAndGet(),
+                        // P8.2：bit_rate[] 档位元数据（缺失时全为 null → 与 P8.1 行为一致）
+                        gear = vc.gear,
+                        width = vc.width,
+                        height = vc.height,
+                        bitrate = vc.bitrate,
+                        dataSize = vc.dataSize,
                     )
                 }
                 // PAGE_JSON 直链优先（默认下载首选）；已捕获同 URL 不重复
@@ -1155,11 +1181,9 @@ class WebViewParser(private val context: Context) : VideoParser {
 
     // ======================= 工具 =======================
 
-    private fun qualityFromUrl(url: String): String? {
-        val u = url.lowercase(Locale.ROOT)
-        val m = Regex("(2160|1440|1080|720|480|360|240)\\s*p").find(u)
-        return m?.groupValues?.get(1)?.plus("P")
-    }
+    /** 从 URL 推断清晰度标签（`height` 未知时的旧兜底逻辑）；与 PC 链路共用同一实现，避免两套漂移。 */
+    private fun qualityFromUrl(url: String): String? =
+        com.kuaixia.app.data.parser.douyin.qualityHintFromUrl(url)
 
     /**
      * 读取页面运行时 JSON 的作品图片高清候选（PAGE_JSON 数据源）。
@@ -1427,9 +1451,15 @@ class WebViewParser(private val context: Context) : VideoParser {
             val keys = o.optJSONArray("videoKeys")?.let { a ->
                 (0 until a.length()).joinToString(",") { a.optString(it) }
             } ?: ""
+            // P8.2：bit_rate[] 审计（字段存在性/命名确认用；不参与任何判定）
+            val brCount = o.optInt("bitRateCount", 0)
+            val brKeys = o.optJSONArray("bitRateKeys")?.let { a ->
+                (0 until a.length()).joinToString(",") { a.optString(it) }
+            } ?: ""
             AppLogRepository.i(
                 LogTags.WEBVIEW,
-                "PAGE_JSON VIDEO 字段审计 items=$items playUrls=$play downloadUrls=$dl videoKeys=[$keys]",
+                "PAGE_JSON VIDEO 字段审计 items=$items playUrls=$play downloadUrls=$dl " +
+                    "bitRateCount=$brCount videoKeys=[$keys] bitRateKeys=[$brKeys]",
             )
             val arr = o.optJSONArray("refs") ?: return@runCatching emptyList()
             buildList {
@@ -1437,15 +1467,41 @@ class WebViewParser(private val context: Context) : VideoParser {
                     val e = arr.optJSONObject(j) ?: continue
                     val field = e.optString("field")
                     val url = e.optString("url")
-                    if (url.isNotBlank()) add(field to url)
+                    if (url.isNotBlank()) {
+                        add(
+                            VideoJsonRef(
+                                field = field,
+                                url = url,
+                                // org.json 的 optString 对 JSON null 返回 "null" 字面量 → 统一视为缺失
+                                source = e.optString("source").takeIf { it.isNotBlank() && it != "null" },
+                                gear = e.optString("gear").takeIf { it.isNotBlank() && it != "null" },
+                                // 数值字段：缺失/非正一律 null（与 JS isFinite 校验一致，不猜测）
+                                width = e.optInt("width", 0).takeIf { it > 0 },
+                                height = e.optInt("height", 0).takeIf { it > 0 },
+                                bitrate = e.optDouble("bitrate", 0.0).takeIf { it > 0 && it.isFinite() },
+                                dataSize = e.optLong("dataSize", 0L).takeIf { it > 0 },
+                            ),
+                        )
+                    }
                 }
             }
         }.getOrDefault(emptyList())
-        val sel = VideoJsonMedia.collect(refs, capturedUrls)
+        val sel = VideoJsonMedia.collectRefs(refs, capturedUrls)
+        // P8.2 汇总（解析诊断）：bit_rate 档位候选数 / 最高 height / 最高码率 / 候选总数
+        val brCandidates = sel.count { it.fromBitRate }
+        val maxHeight = sel.mapNotNull { it.height }.maxOrNull() ?: 0
+        val maxBitrate = sel.mapNotNull { it.bitrate }.maxOrNull() ?: 0.0
+        AppLogRepository.i(
+            LogTags.WEBVIEW,
+            "Douyin bit_rate candidates=$brCandidates maxHeight=$maxHeight " +
+                "maxBitrate=${maxBitrate.toLong()} totalCandidates=${sel.size}",
+        )
         sel.forEach { vc ->
             AppLogRepository.i(
                 LogTags.WEBVIEW,
-                "PAGE_JSON VIDEO 候选 field=${vc.field} wm=${if (vc.watermarkHint) "playwm(带水印语义，未宣称无水印)" else "plain(未证实无水印)"} " +
+                "PAGE_JSON VIDEO 候选 field=${vc.field} source=${vc.source ?: "-"} gear=${vc.gear ?: "-"} " +
+                    "height=${vc.height ?: 0} bitrate=${vc.bitrate?.toLong() ?: 0} " +
+                    "wm=${if (vc.watermarkHint) "playwm(带水印语义，未宣称无水印)" else "plain(未证实无水印)"} " +
                     "url=${LogSanitizer.sanitizeUrl(vc.url)}",
             )
         }

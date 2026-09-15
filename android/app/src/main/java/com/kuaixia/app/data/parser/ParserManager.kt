@@ -42,6 +42,11 @@ class ParserManager(
     private val douyinSession: DouyinWebSession? = null,
     /** douyin 页面级解析（惰性：仅 douyin WebView-first 需要时创建）。 */
     private val webParserProvider: () -> VideoParser? = { null },
+    /**
+     * douyin **PC 形态高清**解析（第一优先级；惰性创建）。
+     * 为 null、开关关闭或解析未命中时，完全按既有链路继续（移动 WebView → yt-dlp → server）。
+     */
+    private val douyinPcParserProvider: () -> VideoParser? = { null },
 ) {
 
     /** 解析结果 + 结果来源（用于 UI 展示「网页解析/本地解析」或服务器名称）。 */
@@ -162,6 +167,31 @@ class ParserManager(
      * 服务器 fallback 只在 WebView 与 yt-dlp 都失败且已配置时才进入。
      */
     private suspend fun douyinChain(url: String, allowServer: Boolean): Result<Outcome> {
+        // 【第一优先级】Douyin PC 形态高清：桌面 UA 加载 www.douyin.com/video/{id}，
+        // 只读捕获页面**自身**发起的 aweme/detail 响应（不实现签名、不自建请求、不改写 URL）。
+        // 命中（candidate>0 且可信>0 且存在 height，由 PC 解析器内部判定）→ 直接返回；
+        // 未命中/异常/超时 → **原样继续**下方既有链路，用户可见行为不变。
+        if (DOUYIN_PC_ENABLED) {
+            val pcParser = douyinPcParserProvider()
+            if (pcParser != null) {
+                val pcStarted = System.currentTimeMillis()
+                val pcResult = runCatching { pcParser.parse(url) }.getOrElse { Result.failure(it) }
+                val pcInfo = pcResult.getOrNull()
+                if (pcInfo != null) {
+                    AppLogRepository.i(
+                        LogTags.PARSER,
+                        "Douyin PC 命中 → 采用高清结果 candidate=${pcInfo.streams.size} " +
+                            "elapsed_ms=${System.currentTimeMillis() - pcStarted}",
+                    )
+                    return Result.success(Outcome(pcInfo, SOURCE_WEBVIEW))
+                }
+                AppLogRepository.i(
+                    LogTags.PARSER,
+                    "Douyin PC 未命中（elapsed_ms=${System.currentTimeMillis() - pcStarted}）" +
+                        "→ 回退移动 WebView → yt-dlp → server",
+                )
+            }
+        }
         var webErr: Throwable? = null
         val webParserLocal = webParserProvider()
         if (webParserLocal != null) {
@@ -374,8 +404,8 @@ class ParserManager(
     }
 
     /**
-     * 本地解析（yt-dlp）。douyin 首次失败且属 Cookie/登录类 → 刷新 WebView Cookie jar 后重试一次。
-     * 命令仍为 `--cookies <jar>`（引擎注入），此处只负责触发「先刷新再重试」。
+     * 本地解析（yt-dlp）。douyin 首次失败且属 Cookie/登录类 → 设备 Cookie 预热 + 刷新 Cookie jar 后重试一次。
+     * 命令仍为 `--cookies <jar>`（引擎注入），此处只负责触发「先预热、再刷新导出、再重试」。
      */
     private suspend fun localAttempts(url: String): Result<VideoInfo> {
         AppLogRepository.i(LogTags.PARSER, "YtDlp parse attempt=1 source=LOCAL")
@@ -390,6 +420,15 @@ class ParserManager(
         AppLogRepository.i(
             LogTags.PARSER,
             "YtDlp failure reason=FRESH_COOKIE Cookie refresh triggered=true",
+        )
+        // P0（抖音高清兜底）：yt-dlp 的 Douyin 提取器要求设备指纹 Cookie `s_v_web_id`
+        // （由 www.douyin.com 页面 JS 生成；缺失即报 "Fresh cookies … are needed"）。
+        // 仅在此分支（douyin + Cookie 类失败 + 准备重试）先让它真实加载一次生成该 Cookie，
+        // 随后 refreshAndExportJar() 才能把它写进 jar。预热失败不影响后续（仍按原逻辑重试/回退）。
+        val warmed = session.ensureDeviceCookies()
+        AppLogRepository.i(
+            LogTags.PARSER,
+            "Douyin device cookies warmed hasSvWebId=$warmed（随后刷新导出 jar 并重试）",
         )
         session.refreshAndExportJar()
         AppLogRepository.i(LogTags.PARSER, "YtDlp parse attempt=2 source=LOCAL")
@@ -461,6 +500,12 @@ class ParserManager(
     private companion object {
         const val SOURCE_LOCAL = "本地解析"
         const val SOURCE_WEBVIEW = "网页解析"
+
+        /**
+         * 抖音 PC 形态高清解析开关（第一优先级）。
+         * `false` = 完全不进入 PC 链路（行为与旧版逐字一致，便于一键回滚/对照实验）。
+         */
+        const val DOUYIN_PC_ENABLED = true
     }
 
     /** 解析成功结果缓存（短 TTL + 小容量；失败/登录态失效不入缓存，不跨过期会话复用）。 */

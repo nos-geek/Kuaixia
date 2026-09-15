@@ -9,6 +9,7 @@ import com.kuaixia.app.data.parser.ParserManager
 import com.kuaixia.app.data.parser.ServerParser
 import com.kuaixia.app.data.parser.WebViewParser
 import com.kuaixia.app.data.parser.YtDlpParser
+import com.kuaixia.app.data.parser.douyin.DouyinPcWebViewParser
 import com.kuaixia.app.data.ytdlp.YtDlpEngine
 import com.kuaixia.app.data.web.DouyinWebSession
 
@@ -40,6 +41,7 @@ class AppContainer(context: Context) {
         settings = settingsRepository,
         douyinSession = douyinWebSession,
         webParserProvider = { webViewParser }, // 惰性：仅 douyin Cookie 失败时创建
+        douyinPcParserProvider = { douyinPcParser }, // 惰性：Douyin PC 高清（第一优先级）
     )
 
     // Phase 3.6：下载仓库（Room 持久化 + CDN 失效自动重解析）。依赖 parserManager 需在其后。
@@ -51,4 +53,7 @@ class AppContainer(context: Context) {
 
     // Phase 5：WebView 嗅探解析（仅调试页使用，暂不接入 ParserManager 默认流程）
     val webViewParser: WebViewParser by lazy { WebViewParser(appContext) }
+
+    // 抖音 PC 形态高清解析（第一优先级；惰性）。未命中时由 ParserManager 回退既有链路。
+    val douyinPcParser: DouyinPcWebViewParser by lazy { DouyinPcWebViewParser(appContext) }
 }

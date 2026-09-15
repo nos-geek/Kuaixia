@@ -48,8 +48,8 @@ android {
         applicationId = "com.kuaixia.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         // youtubedl-android 携带原生库（Python 运行时 + QuickJS），需覆盖主流 ABI
         ndk {

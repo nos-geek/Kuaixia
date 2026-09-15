@@ -256,6 +256,7 @@ fun DouyinLoginScreen(
 private fun shortHost(url: String): String =
     runCatching { Uri.parse(url).host ?: url }.getOrDefault(url)
 
-private const val DESKTOP_USER_AGENT =
+/** 桌面 UA（登录 WebView 与「抖音 PC 高清解析」共用；此处为唯一定义处）。 */
+internal const val DESKTOP_USER_AGENT =
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
         "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
